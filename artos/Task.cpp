@@ -41,8 +41,8 @@ namespace artos
 
 Task::Task(uint16_t const priority)
 {
-	this->priority = priority;
-	this->state = READY;
+  this->priority = priority;
+  this->state = READY;
 }
 
 Task::~Task()
@@ -52,7 +52,7 @@ Task::~Task()
 
 void Task::run()
 {
-	task_function();
+  task_function();
 }
 
 } // namespace artos

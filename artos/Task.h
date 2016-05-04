@@ -49,21 +49,21 @@ class Task
 
 public:
 
-	typedef enum { READY, RUNNING, BLOCKED, SUSPENDED } ETaskState;
+  typedef enum { READY, RUNNING, BLOCKED, SUSPENDED } ETaskState;
 
-	Task(uint16_t const priority);
-	virtual ~Task();
+  Task(uint16_t const priority);
+  virtual ~Task();
 
-	void run();
+  void run();
 
 protected:
 
-	virtual void task_function() = 0;
+  virtual void task_function() = 0;
 
 private:
 
-	uint16_t priority;
-	ETaskState state;
+  uint16_t priority;
+  ETaskState state;
 
 };
 
