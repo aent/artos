@@ -28,46 +28,74 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef ARTOS_TASKLIST_H_
-#define ARTOS_TASKLIST_H_
-
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <list>
+#include "TaskList.h"
 
-#include "Task.h"
+#include <stdexcept>
 
 namespace artos
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-class TaskList
+void TaskList::insertTask(Task *task)
 {
+  /* Determine if a task with the same priority number is already in the list */
 
-public:
+  {
+    std::list<Task *>::iterator iter = this->task_list.begin();
+    for (; iter != this->task_list.end(); iter++)
+    {
+      Task *current_task = *iter;
 
-  void insertTask(Task *task);
+      bool const is_task_with_same_priority_in_task_list =
+          current_task->getPriority() == task->getPriority();
 
-  Task *fetchHighestPriorityReadyTask();
+      if (is_task_with_same_priority_in_task_list)
+      {
+        throw std::runtime_error(
+            "insertTask() failed: Task with identical priority number already in the task list");
+      }
+    }
+  }
 
-private:
+  /* Find out the position where the task needs to be inserted */
 
-  /* The task_list contains all task ordered by their priority -
-   * the first fask in the list has the highest priority ( =
-   * the lowest priority numberof all tasks) while the last
-   * task in the list has the lowest priority ( = the highest
-   * priority number of all tasks).
-   */
+  {
+    std::list<Task *>::iterator iter = this->task_list.begin();
+    for (; iter != this->task_list.end(); iter++)
+    {
+      Task *current_task = *iter;
 
-  std::list<Task *> task_list;
+      if(current_task->getPriority() > task->getPriority())
+      {
+        break;
+      }
+    }
 
-};
+    this->task_list.insert(iter, task);
+  }
+}
+
+Task *TaskList::fetchHighestPriorityReadyTask()
+{
+  std::list<Task *>::iterator iter = this->task_list.begin();
+  for (; iter != this->task_list.end(); iter++)
+  {
+    Task *current_task = *iter;
+
+    if(current_task->getState() == Task::READY)
+    {
+      return current_task;
+    }
+  }
+
+  throw std::runtime_error("fetchHighestPriorityReadyTask() - no ready task available in list");
+}
 
 } // namespace artos
-
-#endif /* ARTOS_TASKLIST_H_ */
