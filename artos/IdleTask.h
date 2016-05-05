@@ -28,22 +28,38 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#ifndef ARTOS_IDLETASK_H_
+#define ARTOS_IDLETASK_H_
+
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <stdlib.h>
-
 #include "Task.h"
-#include "IdleTask.h"
+
+namespace artos
+{
 
 /**************************************************************************************
- * MAIN FUNCTION
+ * CLASS DECLARATION
  **************************************************************************************/
 
-int main(int argc, char **argv)
+class IdleTask : public Task
 {
-  artos::Task *idle_task = new artos::IdleTask();
 
-  return EXIT_SUCCESS;
-}
+public:
+
+  /* Constructor / Destructor */
+
+  IdleTask          ();
+  virtual ~IdleTask ();
+
+protected:
+
+  virtual void task_function();
+
+};
+
+} // namespace artos
+
+#endif /* ARTOS_IDLETASK_H_ */

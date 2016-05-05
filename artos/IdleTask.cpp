@@ -32,18 +32,35 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <stdlib.h>
-
-#include "Task.h"
 #include "IdleTask.h"
 
+#include <limits>
+
+namespace artos
+{
+
 /**************************************************************************************
- * MAIN FUNCTION
+ * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-int main(int argc, char **argv)
+IdleTask::IdleTask() : Task(std::numeric_limits<uint16_t>::max())
 {
-  artos::Task *idle_task = new artos::IdleTask();
 
-  return EXIT_SUCCESS;
 }
+
+IdleTask::~IdleTask()
+{
+
+}
+
+void IdleTask::task_function()
+{
+  for(;;)
+  {
+    /* Do nothing */
+  }
+}
+
+} // namespace artos
+
+#endif /* ARTOS_IDLETASK_H_ */
