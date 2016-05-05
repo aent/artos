@@ -71,7 +71,8 @@ public:
 
 protected:
 
-  virtual void task_function() = 0;
+  virtual void task_init_function () = 0;
+  virtual void task_run_function  () = 0;
 
 private:
 

@@ -53,12 +53,14 @@ IdleTask::~IdleTask()
 
 }
 
-void IdleTask::task_function()
+void IdleTask::task_init_function()
 {
-  for(;;)
-  {
-    /* Do nothing */
-  }
+  /* Nothing to initialize in the idle task */
+}
+
+void IdleTask::task_run_function()
+{
+  /* Nothing to do in the idle task */
 }
 
 } // namespace artos

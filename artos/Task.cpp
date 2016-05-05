@@ -54,7 +54,7 @@ Task::~Task()
 
 void Task::run()
 {
-  task_function();
+  task_run_function();
 }
 
 uint16_t Task::getPriority() const

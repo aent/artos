@@ -56,7 +56,8 @@ public:
 
 protected:
 
-  virtual void task_function();
+  virtual void task_init_function ();
+  virtual void task_run_function  ();
 
 };
 
