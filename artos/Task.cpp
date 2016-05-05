@@ -55,4 +55,19 @@ void Task::run()
   task_function();
 }
 
+uint16_t Task::getPriority() const
+{
+  return this->priority;
+}
+
+Task::ETaskState Task::getState() const
+{
+  return this->state;
+}
+
+void Task::setState(ETaskState const state)
+{
+  this->state = state;
+}
+
 } // namespace artos

@@ -51,10 +51,23 @@ public:
 
   typedef enum { READY, RUNNING, BLOCKED, SUSPENDED } ETaskState;
 
-  Task(uint16_t const priority);
-  virtual ~Task();
+  /* Constructor / Destructor */
+
+  Task          (uint16_t const priority);
+  virtual ~Task ();
+
+  /* Public class methods */
 
   void run();
+
+  /* Getter */
+
+  uint16_t    getPriority () const;
+  ETaskState  getState    () const;
+
+  /* Setter */
+
+  void setState(ETaskState const state);
 
 protected:
 
