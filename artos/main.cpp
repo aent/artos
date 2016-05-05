@@ -36,6 +36,7 @@
 
 #include "Task.h"
 #include "IdleTask.h"
+#include "Scheduler.h"
 
 /**************************************************************************************
  * MAIN FUNCTION
@@ -43,7 +44,13 @@
 
 int main(int argc, char **argv)
 {
+  artos::Scheduler scheduler;
+
   artos::Task *idle_task = new artos::IdleTask();
+
+  scheduler.registerNewTask(idle_task);
+
+  scheduler.run();
 
   return EXIT_SUCCESS;
 }

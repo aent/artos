@@ -54,7 +54,8 @@ Task::~Task()
 
 void Task::run()
 {
-  task_run_function();
+  runInitFunctionOnlyOnce();
+  runTaskFunction();
 }
 
 uint16_t Task::getPriority() const
@@ -70,6 +71,27 @@ Task::ETaskState Task::getState() const
 void Task::setState(ETaskState const state)
 {
   this->state = state;
+}
+
+/**************************************************************************************
+ * PRIVATE FUNCTIONS
+ **************************************************************************************/
+
+void Task::runInitFunctionOnlyOnce()
+{
+  static bool was_init_function_executed = false;
+
+  if(!was_init_function_executed)
+  {
+    was_init_function_executed = true;
+
+    task_init_function();
+  }
+}
+
+void Task::runTaskFunction()
+{
+  task_run_function();
 }
 
 } // namespace artos

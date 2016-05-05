@@ -32,9 +32,7 @@
  * INCLUDES
  **************************************************************************************/
 
-#include "TaskList.h"
-
-#include <stdexcept>
+#include "Scheduler.h"
 
 namespace artos
 {
@@ -43,60 +41,27 @@ namespace artos
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-void TaskList::insertTask(Task *task)
+void Scheduler::registerNewTask(Task *task)
 {
-  /* Determine if a task with the same priority number is already in the list */
-
-  {
-    std::list<Task *>::iterator iter = this->task_list.begin();
-    for (; iter != this->task_list.end(); iter++)
-    {
-      Task *current_task = *iter;
-
-      bool const is_task_with_same_priority_in_task_list =
-          current_task->getPriority() == task->getPriority();
-
-      if (is_task_with_same_priority_in_task_list)
-      {
-        throw std::runtime_error(
-            "insertTask() failed: Task with identical priority number already in the task list");
-      }
-    }
-  }
-
-  /* Find out the position where the task needs to be inserted */
-
-  {
-    std::list<Task *>::iterator iter = this->task_list.begin();
-    for (; iter != this->task_list.end(); iter++)
-    {
-      Task *current_task = *iter;
-
-      if(current_task->getPriority() > task->getPriority())
-      {
-        break;
-      }
-    }
-
-    this->task_list.insert(iter, task);
-  }
-
+  this->task_list.insertTask(task);
 }
 
-Task *TaskList::fetchHighestPriorityReadyTask()
+void Scheduler::run()
 {
-  std::list<Task *>::iterator iter = this->task_list.begin();
-  for (; iter != this->task_list.end(); iter++)
+  for(;;)
   {
-    Task *current_task = *iter;
-
-    if(current_task->getState() == Task::READY)
-    {
-      return current_task;
-    }
+    runHighestPriorityReadyTask();
   }
+}
 
-  throw std::runtime_error("fetchHighestPriorityReadyTask() - no ready task available in list");
+/**************************************************************************************
+ * PRIVATE FUNCTIONS
+ **************************************************************************************/
+
+void Scheduler::runHighestPriorityReadyTask()
+{
+  Task *task = this->task_list.fetchHighestPriorityReadyTask();
+  task->run();
 }
 
 } // namespace artos

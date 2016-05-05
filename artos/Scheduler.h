@@ -28,75 +28,39 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#ifndef ARTOS_SCHEDULER_H_
+#define ARTOS_SCHEDULER_H_
+
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
 #include "TaskList.h"
 
-#include <stdexcept>
-
 namespace artos
 {
 
 /**************************************************************************************
- * PUBLIC FUNCTIONS
+ * CLASS DECLARATIONS
  **************************************************************************************/
 
-void TaskList::insertTask(Task *task)
+class Scheduler
 {
-  /* Determine if a task with the same priority number is already in the list */
 
-  {
-    std::list<Task *>::iterator iter = this->task_list.begin();
-    for (; iter != this->task_list.end(); iter++)
-    {
-      Task *current_task = *iter;
+public:
 
-      bool const is_task_with_same_priority_in_task_list =
-          current_task->getPriority() == task->getPriority();
+  void registerNewTask(Task *task);
 
-      if (is_task_with_same_priority_in_task_list)
-      {
-        throw std::runtime_error(
-            "insertTask() failed: Task with identical priority number already in the task list");
-      }
-    }
-  }
+  void run();
 
-  /* Find out the position where the task needs to be inserted */
+private:
 
-  {
-    std::list<Task *>::iterator iter = this->task_list.begin();
-    for (; iter != this->task_list.end(); iter++)
-    {
-      Task *current_task = *iter;
+  TaskList task_list;
 
-      if(current_task->getPriority() > task->getPriority())
-      {
-        break;
-      }
-    }
+  void runHighestPriorityReadyTask();
 
-    this->task_list.insert(iter, task);
-  }
-
-}
-
-Task *TaskList::fetchHighestPriorityReadyTask()
-{
-  std::list<Task *>::iterator iter = this->task_list.begin();
-  for (; iter != this->task_list.end(); iter++)
-  {
-    Task *current_task = *iter;
-
-    if(current_task->getState() == Task::READY)
-    {
-      return current_task;
-    }
-  }
-
-  throw std::runtime_error("fetchHighestPriorityReadyTask() - no ready task available in list");
-}
+};
 
 } // namespace artos
+
+#endif /* ARTOS_SCHEDULER_H_ */

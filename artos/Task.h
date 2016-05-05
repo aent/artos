@@ -79,6 +79,9 @@ private:
   uint16_t priority;
   ETaskState state;
 
+  void runInitFunctionOnlyOnce();
+  void runTaskFunction        ();
+
 };
 
 } // namespace artos
