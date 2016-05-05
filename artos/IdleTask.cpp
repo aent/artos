@@ -62,5 +62,3 @@ void IdleTask::task_function()
 }
 
 } // namespace artos
-
-#endif /* ARTOS_IDLETASK_H_ */
