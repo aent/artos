@@ -28,47 +28,27 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#ifndef DRIVERS_IOCTLARGUMENT_H_
-#define DRIVERS_IOCTLARGUMENT_H_
-
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include <stdint.h>
+#include "IoctlArgument.h"
 
 namespace artos
 {
 
 /**************************************************************************************
- * CLASS DECLARATION
+ * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-/**
- * \class IoctlArgument serves as base class for any kind of arguments
- * for the ioctl function of the DriverInterface class replacing the
- * classical 'void *' argument in a more object oriented manner.
- */
-class IoctlArgument
+IoctlArgument::IoctlArgument(uint16_t const ioctl_number)
 {
+  this->ioctl_number = ioctl_number;
+}
 
-public:
-
-  /* Constructor / Destructor */
-
-  IoctlArgument(uint16_t const ioctl_number);
-  ~IoctlArgument() { }
-
-  /* Getter/Setter methods */
-
-  uint16_t getIoctlNumber() const;
-
-private:
-
-  uint16_t ioctl_number;
-
-};
+uint16_t IoctlArgument::getIoctlNumber() const
+{
+  return this->getIoctlNumber();
+}
 
 } // namespace artos
-
-#endif /* DRIVERS_IOCTLARGUMENT_H_ */
