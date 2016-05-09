@@ -53,7 +53,7 @@ public:
 
   void addTask(Task *task);
 
-  Task *getTaskByPriority           (uint16_t const priority);
+  Task *getTaskById                 (uint16_t const id);
   Task *getHighestPriorityReadyTask ();
 
 private:

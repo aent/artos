@@ -83,14 +83,14 @@ void TaskList::addTask(Task *task)
 
 }
 
-Task *TaskList::getTaskByPriority(uint16_t const priority)
+Task *TaskList::getTaskById(uint16_t const id)
 {
   std::list<Task *>::iterator iter = this->task_list.begin();
   for (; iter != this->task_list.end(); iter++)
   {
     Task *current_task = *iter;
 
-    if(current_task->getPriority() == priority)
+    if(current_task->getId() == id)
     {
       return current_task;
     }

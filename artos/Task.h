@@ -68,7 +68,8 @@ public:
 
   /* Setter */
 
-  void setState(ETaskState const state);
+  uint16_t  setPriority (uint16_t const priority);
+  void      setState    (ETaskState const state);
 
 protected:
 

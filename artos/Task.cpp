@@ -74,6 +74,11 @@ Task::ETaskState Task::getState() const
   return this->state;
 }
 
+uint16_t Task::setPriority (uint16_t const priority)
+{
+  this->priority = priority;
+}
+
 void Task::setState(ETaskState const state)
 {
   this->state = state;
