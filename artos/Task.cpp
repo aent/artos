@@ -38,12 +38,18 @@ namespace artos
 {
 
 /**************************************************************************************
+ * STATIC MEMBER VARIABLES
+ **************************************************************************************/
+
+uint16_t Task::task_id_cnt = 0;
+
+/**************************************************************************************
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-Task::Task(uint16_t const id, uint16_t const priority)
+Task::Task(uint16_t const priority)
 {
-  this->id        = id;
+  this->id        = task_id_cnt++;
   this->priority  = priority;
   this->state     = READY;
 }

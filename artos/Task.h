@@ -53,7 +53,7 @@ public:
 
   /* Constructor / Destructor */
 
-  Task          (uint16_t const id, uint16_t const priority);
+  Task          (uint16_t const priority);
   virtual ~Task ();
 
   /* Public class methods */
@@ -81,6 +81,8 @@ private:
   uint16_t    id;
   uint16_t    priority;
   ETaskState  state;
+
+  static uint16_t task_id_cnt;
 
   void runInitFunctionOnlyOnce();
   void runTaskFunction        ();

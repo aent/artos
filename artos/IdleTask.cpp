@@ -43,7 +43,7 @@ namespace artos
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-IdleTask::IdleTask() : Task(0, std::numeric_limits<uint16_t>::max())
+IdleTask::IdleTask() : Task(std::numeric_limits<uint16_t>::max())
 {
 
 }
