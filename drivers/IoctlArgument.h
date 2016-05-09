@@ -28,53 +28,37 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#ifndef DRIVERS_IOCTLARGUMENT_H_
+#define DRIVERS_IOCTLARGUMENT_H_
+
 /**************************************************************************************
  * INCLUDES
  **************************************************************************************/
 
-#include "DRV2605.h"
+#include <stdint.h>
 
 namespace artos
 {
 
 /**************************************************************************************
- * PUBLIC METHODS
+ * CLASS DECLARATION
  **************************************************************************************/
 
-DRV2605::DRV2605(I2CInterface *i2c, uint8_t const i2c_address)
-{
-  this->i2c = i2c;
-  this->i2c_address = i2c_address;
-}
-
-DRV2605::~DRV2605()
-{
-
-}
-
-void DRV2605::open()
+/**
+ * \class IoctlArgument serves as base class for any kind of arguments
+ * for the ioctl function of the DriverInterface class replacing the
+ * classical 'void *' argument is a more object oriented manner.
+ */
+class IoctlArgument
 {
 
-}
+public:
 
-void DRV2605::close()
-{
+	IoctlArgument() { }
+	~IoctlArgument() { }
 
-}
-
-void DRV2605::read(uint8_t *buffer, uint8_t const bytes)
-{
-
-}
-
-void DRV2605::write(uint8_t const buffer, uint8_t const bytes)
-{
-
-}
-
-void DRV2605::ioctl(IoctlArgument *arg)
-{
-
-}
+};
 
 } // namespace artos
+
+#endif /* DRIVERS_IOCTLARGUMENT_H_ */

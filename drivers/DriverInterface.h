@@ -37,6 +37,8 @@
 
 #include <stdint.h>
 
+#include "IoctlArgument.h"
+
 namespace artos
 {
 
@@ -60,7 +62,7 @@ public:
   virtual void close() = 0;
   virtual void read(uint8_t *buffer, uint8_t const bytes) = 0;
   virtual void write(uint8_t const buffer, uint8_t const bytes) = 0;
-  virtual void ioctl(void *arg) = 0;
+  virtual void ioctl(IoctlArgument *arg) = 0;
 };
 
 } // namespace artos

@@ -62,7 +62,7 @@ public:
   virtual void close();
   virtual void read(uint8_t *buffer, uint8_t const bytes);
   virtual void write(uint8_t const buffer, uint8_t const bytes);
-  virtual void ioctl(void *arg);
+  virtual void ioctl(IoctlArgument *arg);
 
 private:
 
