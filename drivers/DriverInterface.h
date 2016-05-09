@@ -38,6 +38,7 @@
 #include <stdint.h>
 
 #include "ReadArgument.h"
+#include "WriteArgument.h"
 #include "IoctlArgument.h"
 
 namespace artos
@@ -59,11 +60,11 @@ public:
 
   /* Public class methods */
 
-  virtual void open() = 0;
+  virtual void open () = 0;
   virtual void close() = 0;
-  virtual void read(ReadArgument *arg) = 0;
-  virtual void write(uint8_t const buffer, uint8_t const bytes) = 0;
-  virtual void ioctl(IoctlArgument *arg) = 0;
+  virtual void read (ReadArgument         *arg) = 0;
+  virtual void write(WriteArgument const  *arg) = 0;
+  virtual void ioctl(IoctlArgument        *arg) = 0;
 };
 
 } // namespace artos

@@ -28,53 +28,32 @@
  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-/**************************************************************************************
- * INCLUDES
- **************************************************************************************/
-
-#include "DRV2605.h"
+#ifndef DRIVERS_WRITEARGUMENT_H_
+#define DRIVERS_WRITEARGUMENT_H_
 
 namespace artos
 {
 
 /**************************************************************************************
- * PUBLIC METHODS
+ * CLASS DECLARATION
  **************************************************************************************/
 
-DRV2605::DRV2605(I2CInterface *i2c, uint8_t const i2c_address)
-{
-  this->i2c = i2c;
-  this->i2c_address = i2c_address;
-}
-
-DRV2605::~DRV2605()
-{
-
-}
-
-void DRV2605::open()
+/**
+ * \class WriteArgument serves as base class for any kind of arguments
+ * for the write function of the DriverInterface class replacing the
+ * classical 'uint8_t const *buffer, uint8_t const bytes' I/O parameter
+ * in a more object oriented manner.
+ */
+class WriteArgument
 {
 
-}
+public:
 
-void DRV2605::close()
-{
+	WriteArgument() { }
+	~WriteArgument() { }
 
-}
-
-void DRV2605::read(ReadArgument *arg)
-{
-
-}
-
-void DRV2605::write(WriteArgument const *arg)
-{
-
-}
-
-void DRV2605::ioctl(IoctlArgument *arg)
-{
-
-}
+};
 
 } // namespace artos
+
+#endif /* DRIVERS_WRITEARGUMENT_H_ */
