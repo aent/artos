@@ -35,8 +35,6 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <stdint.h>
-
 namespace artos
 {
 
@@ -47,7 +45,7 @@ namespace artos
 /**
  * \class IoctlArgument serves as base class for any kind of arguments
  * for the ioctl function of the DriverInterface class replacing the
- * classical 'void *' argument is a more object oriented manner.
+ * classical 'void *' argument in a more object oriented manner.
  */
 class IoctlArgument
 {
