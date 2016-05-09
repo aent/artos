@@ -60,7 +60,7 @@ public:
 
   virtual void open();
   virtual void close();
-  virtual void read(uint8_t *buffer, uint8_t const bytes);
+  virtual void read(ReadArgument *arg);
   virtual void write(uint8_t const buffer, uint8_t const bytes);
   virtual void ioctl(IoctlArgument *arg);
 
