@@ -51,29 +51,25 @@ Scheduler::Scheduler()
 void Scheduler::registerNewTask(Task *task)
 {
   this->task_list.insertTask(task);
+  this->current_task = this->task_list.fetchHighestPriorityReadyTask();
 }
 
 void Scheduler::run()
 {
-  this->current_task = this->task_list.fetchHighestPriorityReadyTask();
+  Task *task = this->task_list.fetchHighestPriorityReadyTask();
 
-  for(;;)
+  bool const is_higher_priority_task_ready = task->getPriority()
+      != current_task->getPriority();
+
+  if (is_higher_priority_task_ready)
   {
-    Task *task = this->task_list.fetchHighestPriorityReadyTask();
+    this->current_task->setState(Task::READY);
+    this->current_task = task;
 
-    bool const is_higher_priority_task_ready =
-        task->getPriority() != current_task->getPriority();
-
-    if(is_higher_priority_task_ready)
-    {
-      this->current_task->setState(Task::READY);
-      this->current_task = task;
-
-      this->current_task->setState(Task::RUNNING);
-    }
-
-    this->current_task->run();
+    this->current_task->setState(Task::RUNNING);
   }
+
+  this->current_task->run();
 }
 
 /**************************************************************************************

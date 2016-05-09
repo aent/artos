@@ -50,7 +50,10 @@ int main(int argc, char **argv)
 
   scheduler.registerNewTask(idle_task);
 
-  scheduler.run();
+  for(;;)
+  {
+    scheduler.run();
+  }
 
   return EXIT_SUCCESS;
 }
