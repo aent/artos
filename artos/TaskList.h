@@ -51,9 +51,10 @@ class TaskList
 
 public:
 
-  void insertTask(Task *task);
+  void addTask(Task *task);
 
-  Task *fetchHighestPriorityReadyTask();
+  Task *getTaskByPriority           (uint16_t const priority);
+  Task *getHighestPriorityReadyTask ();
 
 private:
 

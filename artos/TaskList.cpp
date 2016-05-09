@@ -43,7 +43,7 @@ namespace artos
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-void TaskList::insertTask(Task *task)
+void TaskList::addTask(Task *task)
 {
   /* Determine if a task with the same priority number is already in the list */
 
@@ -83,7 +83,23 @@ void TaskList::insertTask(Task *task)
 
 }
 
-Task *TaskList::fetchHighestPriorityReadyTask()
+Task *TaskList::getTaskByPriority(uint16_t const priority)
+{
+  std::list<Task *>::iterator iter = this->task_list.begin();
+  for (; iter != this->task_list.end(); iter++)
+  {
+    Task *current_task = *iter;
+
+    if(current_task->getPriority() == priority)
+    {
+      return current_task;
+    }
+  }
+
+  throw std::runtime_error("getTaskByPriority() - invalid priority number");
+}
+
+Task *TaskList::getHighestPriorityReadyTask()
 {
   std::list<Task *>::iterator iter = this->task_list.begin();
   for (; iter != this->task_list.end(); iter++)
@@ -96,7 +112,7 @@ Task *TaskList::fetchHighestPriorityReadyTask()
     }
   }
 
-  throw std::runtime_error("fetchHighestPriorityReadyTask() - no ready task available in list");
+  throw std::runtime_error("getHighestPriorityReadyTask() - no ready task available in list");
 }
 
 } // namespace artos
