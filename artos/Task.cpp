@@ -41,10 +41,11 @@ namespace artos
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-Task::Task(uint16_t const priority)
+Task::Task(uint16_t const id, uint16_t const priority)
 {
-  this->priority = priority;
-  this->state = READY;
+  this->id        = id;
+  this->priority  = priority;
+  this->state     = READY;
 }
 
 Task::~Task()
@@ -56,6 +57,11 @@ void Task::run()
 {
   runInitFunctionOnlyOnce();
   runTaskFunction();
+}
+
+uint16_t Task::getId() const
+{
+  return this->id;
 }
 
 uint16_t Task::getPriority() const
