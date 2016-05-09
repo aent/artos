@@ -49,15 +49,20 @@ class Scheduler
 
 public:
 
+  /* Constructor / Destructor */
+
+  Scheduler();
+
+  /* Public methods */
+
   void registerNewTask(Task *task);
 
   void run();
 
 private:
 
+  Task *current_task;
   TaskList task_list;
-
-  void runHighestPriorityReadyTask();
 
 };
 

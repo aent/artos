@@ -34,12 +34,19 @@
 
 #include "Scheduler.h"
 
+#include <stdexcept>
+
 namespace artos
 {
 
 /**************************************************************************************
  * PUBLIC FUNCTIONS
  **************************************************************************************/
+
+Scheduler::Scheduler()
+{
+  this->current_task = 0;
+}
 
 void Scheduler::registerNewTask(Task *task)
 {
@@ -48,20 +55,29 @@ void Scheduler::registerNewTask(Task *task)
 
 void Scheduler::run()
 {
+  this->current_task = this->task_list.fetchHighestPriorityReadyTask();
+
   for(;;)
   {
-    runHighestPriorityReadyTask();
+    Task *task = this->task_list.fetchHighestPriorityReadyTask();
+
+    bool const is_higher_priority_task_ready =
+        task->getPriority() != current_task->getPriority();
+
+    if(is_higher_priority_task_ready)
+    {
+      this->current_task->setState(Task::READY);
+      this->current_task = task;
+
+      this->current_task->setState(Task::RUNNING);
+    }
+
+    this->current_task->run();
   }
 }
 
 /**************************************************************************************
  * PRIVATE FUNCTIONS
  **************************************************************************************/
-
-void Scheduler::runHighestPriorityReadyTask()
-{
-  Task *task = this->task_list.fetchHighestPriorityReadyTask();
-  task->run();
-}
 
 } // namespace artos
