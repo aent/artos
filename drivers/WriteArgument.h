@@ -49,8 +49,8 @@ class WriteArgument
 
 public:
 
-	WriteArgument() { }
-	~WriteArgument() { }
+  WriteArgument() { }
+  ~WriteArgument() { }
 
 };
 

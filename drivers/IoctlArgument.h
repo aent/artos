@@ -52,8 +52,8 @@ class IoctlArgument
 
 public:
 
-	IoctlArgument() { }
-	~IoctlArgument() { }
+  IoctlArgument() { }
+  ~IoctlArgument() { }
 
 };
 

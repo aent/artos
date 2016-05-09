@@ -49,8 +49,8 @@ class ReadArgument
 
 public:
 
-	ReadArgument() { }
-	~ReadArgument() { }
+  ReadArgument() { }
+  ~ReadArgument() { }
 
 };
 
