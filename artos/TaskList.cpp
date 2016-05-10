@@ -43,76 +43,94 @@ namespace artos
  * PUBLIC FUNCTIONS
  **************************************************************************************/
 
-void TaskList::addTask(Task *task)
+TaskList::TaskList()
+{
+  this->task_list_head = 0;
+}
+
+bool TaskList::addTask(Task *task)
 {
   /* Determine if a task with the same priority number is already in the list */
 
+  bool const is_task_list_empty = (this->task_list_head == 0);
+
+  if (is_task_list_empty)
   {
-    std::list<Task *>::iterator iter = this->task_list.begin();
-    for (; iter != this->task_list.end(); iter++)
+    STaskListEntry *new_task_list_entry = new STaskListEntry;
+    new_task_list_entry->task = task;
+    new_task_list_entry->next = 0;
+    this->task_list_head = new_task_list_entry;
+
+    return true;
+  }
+  else
+  {
+    STaskListEntry *current_task_list_entry = this->task_list_head;
+    for (; current_task_list_entry->next != 0; current_task_list_entry = current_task_list_entry->next)
     {
-      Task *current_task = *iter;
-
-      bool const is_task_with_same_priority_in_task_list =
-          current_task->getPriority() == task->getPriority();
-
+      bool const is_task_with_same_priority_in_task_list = current_task_list_entry->task->getPriority() == task->getPriority();
       if (is_task_with_same_priority_in_task_list)
       {
-        throw std::runtime_error(
-            "insertTask() failed: Task with identical priority number already in the task list");
+        return false;
       }
     }
   }
 
   /* Find out the position where the task needs to be inserted */
 
+  STaskListEntry *current_task_list_entry = this->task_list_head;
+  STaskListEntry *prev_task_list_entry = 0;
+  for (; current_task_list_entry->next != 0; current_task_list_entry = current_task_list_entry->next)
   {
-    std::list<Task *>::iterator iter = this->task_list.begin();
-    for (; iter != this->task_list.end(); iter++)
+    if(current_task_list_entry->task->getPriority() > task->getPriority())
     {
-      Task *current_task = *iter;
+      STaskListEntry *new_task_list_entry = new STaskListEntry;
+      new_task_list_entry->task = task;
+      new_task_list_entry->next = current_task_list_entry;
 
-      if(current_task->getPriority() > task->getPriority())
+      if(prev_task_list_entry != 0)
       {
-        break;
+        prev_task_list_entry->next = new_task_list_entry;
+      }
+      else
+      {
+        this->task_list_head = new_task_list_entry;
       }
     }
 
-    this->task_list.insert(iter, task);
+    prev_task_list_entry = current_task_list_entry;
   }
 
+  return true;
 }
 
 Task *TaskList::getTaskById(uint16_t const id)
 {
-  std::list<Task *>::iterator iter = this->task_list.begin();
-  for (; iter != this->task_list.end(); iter++)
+  STaskListEntry *current_task_list_entry = this->task_list_head;
+  for (; current_task_list_entry->next != 0; current_task_list_entry = current_task_list_entry->next)
   {
-    Task *current_task = *iter;
-
-    if(current_task->getId() == id)
+    bool const is_task_with_same_id_in_task_list = current_task_list_entry->task->getId() == id;
+    if (is_task_with_same_id_in_task_list)
     {
-      return current_task;
+      return current_task_list_entry->task;
     }
   }
 
-  throw std::runtime_error("getTaskByPriority() - invalid priority number");
+  return 0;
 }
 
 Task *TaskList::getHighestPriorityReadyTask()
 {
-  std::list<Task *>::iterator iter = this->task_list.begin();
-  for (; iter != this->task_list.end(); iter++)
+  STaskListEntry *current_task_list_entry = this->task_list_head;
+  for (; current_task_list_entry->next != 0; current_task_list_entry = current_task_list_entry->next)
   {
-    Task *current_task = *iter;
-
-    if(current_task->getState() == Task::READY)
+    if (current_task_list_entry->task->getState() == Task::READY)
     {
-      return current_task;
+      return current_task_list_entry->task;
     }
   }
 
-  throw std::runtime_error("getHighestPriorityReadyTask() - no ready task available in list");
+  return 0;
 }
 
 } // namespace artos

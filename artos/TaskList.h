@@ -35,8 +35,6 @@
  * INCLUDES
  **************************************************************************************/
 
-#include <list>
-
 #include "Task.h"
 
 namespace artos
@@ -51,7 +49,9 @@ class TaskList
 
 public:
 
-  void addTask(Task *task);
+  TaskList();
+
+  bool addTask(Task *task);
 
   Task *getTaskById                 (uint16_t const id);
   Task *getHighestPriorityReadyTask ();
@@ -65,7 +65,13 @@ private:
    * priority number of all tasks).
    */
 
-  std::list<Task *> task_list;
+  struct STaskListEntry
+  {
+    Task            *task;
+    STaskListEntry  *next;
+  };
+
+  STaskListEntry *task_list_head;
 
 };
 

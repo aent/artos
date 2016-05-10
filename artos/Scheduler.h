@@ -49,15 +49,10 @@ class Scheduler
 
 public:
 
-  /* Constructor / Destructor */
-
   Scheduler();
 
-  /* Public methods */
-
-  void registerNewTask(Task *task);
-
   void run();
+  bool registerTask(Task *task);
 
 private:
 

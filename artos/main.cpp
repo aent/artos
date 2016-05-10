@@ -48,7 +48,7 @@ int main(int argc, char **argv)
 
   artos::Task *idle_task = new artos::IdleTask();
 
-  scheduler.registerNewTask(idle_task);
+  scheduler.registerTask(idle_task);
 
   for(;;)
   {

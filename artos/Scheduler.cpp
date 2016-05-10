@@ -48,12 +48,6 @@ Scheduler::Scheduler()
   this->current_task = 0;
 }
 
-void Scheduler::registerNewTask(Task *task)
-{
-  this->task_list.addTask(task);
-  this->current_task = this->task_list.getHighestPriorityReadyTask();
-}
-
 void Scheduler::run()
 {
   Task *task = this->task_list.getHighestPriorityReadyTask();
@@ -70,6 +64,20 @@ void Scheduler::run()
   }
 
   this->current_task->run();
+}
+
+bool Scheduler::registerTask(Task *task)
+{
+  bool const success = this->task_list.addTask(task);
+  if(success)
+  {
+    this->current_task = this->task_list.getHighestPriorityReadyTask();
+    return true;
+  }
+  else
+  {
+    return false;
+  }
 }
 
 /**************************************************************************************
